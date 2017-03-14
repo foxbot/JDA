@@ -398,9 +398,9 @@ public class JDAImpl implements JDA
     @Override
     public List<Role> getRoles()
     {
-        List<Role> roles = new ArrayList<>();
-        guilds.forEachValue(guild -> roles.addAll(guild.getRoles()));
-        return Collections.unmodifiableList(roles);
+        return guilds.valueCollection().stream()
+                .flatMap(guild -> guild.getRoles().stream())
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -424,9 +424,9 @@ public class JDAImpl implements JDA
     @Override
     public List<Role> getRolesByName(String name, boolean ignoreCase)
     {
-        List<Role> roles = new ArrayList<>();
-        guilds.forEachValue(guild -> roles.addAll(guild.getRolesByName(name, ignoreCase)));
-        return roles;
+        return guilds.valueCollection().stream()
+                .flatMap(guild -> guild.getRolesByName(name, ignoreCase).stream())
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -506,17 +506,17 @@ public class JDAImpl implements JDA
     @Override
     public List<Emote> getEmotes()
     {
-        List<Emote> emotes = new ArrayList<>();
-        guilds.forEachValue(guild -> emotes.addAll(guild.getEmotes()));
-        return Collections.unmodifiableList(emotes);
+        return guilds.valueCollection().stream()
+                .flatMap(guild -> guild.getEmotes().stream())
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Emote> getEmotesByName(String name, boolean ignoreCase)
     {
-        List<Emote> emotes = new ArrayList<>();
-        guilds.forEachValue(guild -> emotes.addAll(guild.getEmotesByName(name, ignoreCase)));
-        return Collections.unmodifiableList(emotes);
+        return guilds.valueCollection().stream()
+                .flatMap(guild -> guild.getEmotesByName(name, ignoreCase).stream())
+                .collect(Collectors.toList());
     }
 
     @Override
