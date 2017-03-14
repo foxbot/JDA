@@ -15,6 +15,10 @@
  */
 package net.dv8tion.jda.core.requests;
 
+import gnu.trove.map.TLongObjectMap;
+import gnu.trove.map.hash.TLongObjectHashMap;
+import gnu.trove.set.TLongSet;
+import gnu.trove.set.hash.TLongHashSet;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.impl.JDAImpl;
 import net.dv8tion.jda.core.utils.SimpleLog;
@@ -37,8 +41,8 @@ public class GuildLock
     }
 
     private final JDA api;
-    private final Map<Long, List<JSONObject>> cache = new HashMap<>();
-    private final Set<Long> cached = new HashSet<>();
+    private final TLongObjectMap<List<JSONObject>> cache = new TLongObjectHashMap<>();
+    private final TLongSet cached = new TLongHashSet();
 
     public boolean isLocked(long guildId)
     {
